@@ -1,0 +1,211 @@
+---
+  title: "Assignment 1"
+author: "Emily Aaron"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+  toc: yes
+toc_float: yes
+---
+
+  ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I have completed 11/15 questions for assignment 1.
+
+
+# Question 1
+
+Assignments-15%
+Labs-10%
+Projects-10%
+In Class Quiz-10%
+Chapter Quizzes-5%
+Mid-Term Exam-20%
+Final-30%
+A-90s
+B-80s
+C-60s & 70s
+D-50s
+F->50
+
+# Question 2
+```{r}
+getwd()
+ddt<-read.csv("DDT.csv")
+head(ddt)
+```
+
+(a)
+```{r}
+rivcol=with(ddt, ifelse(RIVER=="FCM","Green",
+                        ifelse(RIVER=="LCM","red",
+                               ifelse(RIVER=="SCM","Black", rainbow(4)))))
+coplot(LENGTH~WEIGHT|RIVER*SPECIES, data=ddt, col=rivcol)
+```
+
+
+(b)
+(c) Line A changes the factor Mile into a numeric vector.
+(d)Line B gives the unique values of the vector.
+(e) The rivers FCM, LCM, and SCM only contain one species of fish which is CCATFISH.
+(f) The mean is 45
+```{r}
+ddt[ddt$RIVER=="FCM"& ddt$SPECIES=="CCATFISH"]
+```
+
+
+
+# Question 3
+
+(a) qualitative
+(b) qualitative
+(c) quantitative
+(d) qualitative
+(e) quantitative
+(f) qualitative
+(g) quantitative
+
+# Question 4
+
+(a) Simple random sample, stratified random sampling, cluster sampling, systematic sampling
+
+(b) Simple random sample is when each variable used as an equal chance of being selected for the experiment.
+Stratified random sampling is the units that can be separated into two groups where they units are similar within the groups rather than across.
+Cluster sampling is natural groupings that data is collected from.
+Systemic sampling is choosing every specific kth unit from the list given.
+
+# Question 5
+
+```{r}
+mtbe = read.csv("C:/users/eaaro/Documents/Stats/Labs/MTBE.csv", header=TRUE)
+head(mtbe)
+dim(mtbe)
+ind=sample(1:223, 5, replace=FALSE)
+mtbe[ind,]
+```
+
+(a)
+```{r}
+mtbeo=na.omit(mtbe)
+depth=mtbeo[mtbeo$Aquifier=="Unconsoli",]$Depth
+sd(depth)
+```
+
+#Question 6
+
+```{r}
+ethqke= read.csv("C:/users/eaaro/Documents/Stats/Labs/EARTHQUAKE.csv", header = TRUE)
+dim(ethqke)
+eq= sample(1:2929, 30, replace = FALSE)
+ethqke[eq,]
+```
+
+(a)
+(i)
+```{r}
+plot(ts(ethqke$MAG))
+```
+
+(ii)
+```{r}
+median(ethqke$MAGNITUDE)
+```
+
+# Question 7
+
+(a) Designed experiment
+(b) All fish in Tennessee Rivers and its tributaries.
+(c) Location and species
+
+# Question 8
+
+(a) Bar plot
+(b) Robotic limbs
+(c) Legs only robot design
+(d) None; 0.1415
+Both:0.0755
+Legs Only:0.5943
+Wheels only: 0.1887
+(e)
+```{r}
+freq=c(15,8,63,20)
+RL=c("None","Both","LegsO", "WheelsO")
+l=rep(RL,freq)
+pareto<-function(x,mn="Pareto barplot",...){  # x is a vector
+  x.tab=table(x)
+  xx.tab=sort(x.tab, decreasing=TRUE,index.return=FALSE)
+  cumsum(as.vector(xx.tab))->cs
+  length(x.tab)->lenx
+  bp<-barplot(xx.tab,ylim=c(0,max(cs)),las=2)
+  lb<-seq(0,cs[lenx],l=11)
+  axis(side=4,at=lb,labels=paste(seq(0,100,length=11),"%",sep=""),las=1,line=-1,col="Blue",col.axis="Red")
+  for(i in 1:(lenx-1)){
+    segments(bp[i],cs[i],bp[i+1],cs[i+1],col=i,lwd=2)
+  }
+  title(main=mn,...)
+}
+pareto(l)
+```
+
+# Question 12
+
+```{r}
+pip= c(1.72,2.50,2.16,2.13,1.06,2.24,2.31,2.03,1.09,1.40,2.57,2.64,1.26,2.05,1.19,2.13,1.27,1.51,2.41,1.95)
+mean(pip)
+sd(pip)
+```
+The interval for pipe roughness will be 1.881 +/- 2(0.5239).
+
+# Question 13
+
+(a)
+```{r}
+gob=read.csv("C:/users/eaaro/Documents/Stats/Data/GOBIANTS.csv")
+mean(gob$AntSpecies)
+median(gob$AntSpecies)
+getmode <- function(v) {
+  uniqv <- unique(v)
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+v<-c(gob$AntSpecies)
+getmode(v)
+```
+
+The mean number of ant species in Mongolia is 12.82 meaning that this is the average of the data set.
+The median of the set is 5, where this is the middle of the data set.
+The mode is 5 which is the most common number in the data set.
+
+(b) The median would be a preferred measure of central tendency since there is a skewness taking place due to two larger variables in the set.
+
+(c)
+```{r}
+ds= c(40,52,40,43,27)
+mean(ds)
+getmode(ds)
+median(ds)
+```
+
+(d)
+```{r}
+gd=c(30,16,30,56,22,14)
+mean(gd)
+median(gd)
+getmode(gd)
+```
+
+(e) Yes, because the Dry Steppe has total plant cover that is more similar to each other and the Gobi Desert has one outlier that affects the data set.
+
+# Question 14
+
+(a)
+```{r}
+gal=read.csv("C:/users/eaaro/documents/Stats/Data/GALAXY2.csv")
+v<- gal$VELOCITY
+h<-hist(v,xlab="Velocity km/s", main="Histogram of Velocity")
+xfit<-seq(min(v),max(v),length=25000)
+yfit<-dnorm(xfit,mean=mean(v), sd=sd(v))
+yfit<- yfit*diff(h$mids[1:2])*length(v)
+lines(xfit, yfit, col="red")
+```
