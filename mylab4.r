@@ -7,11 +7,6 @@ output:
   toc: yes
 toc_float: yes
 ---
-  
-  ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 # Tasks
 
 ## Task 1
