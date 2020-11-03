@@ -3,6 +3,7 @@
 #' @param x is the data used
 #' @param n is the sample size
 #' @param iter is the number of iterations
+#'
 myboot2<-function(iter=10000,x,fun="mean",alpha=0.05,cx=1.5,...){  #Notice where the ... is repeated in the code
   n=length(x)   #sample size
 
