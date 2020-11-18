@@ -1,13 +1,15 @@
 #'myboot2
 #'
+#'@param iter is the number of iterations
+#'@param x is the data
+#'@param fun is the mean of the data
+#'@param alpha is the confidence
+#'
+#'@example
+#'myboot(1000,x=sam, fun="mean",alpha=0.2) #sam is a set of data points
 #'
 #'
-#'
-#'
-#'
-#'
-#'
-myboot<-function(iter=10000,x,fun="mean",alpha=0.05,...){
+myboot<-function(iter,x,fun="mean",alpha,...){
 n=length(x)
 y=sample(x,n*iter,replace=TRUE)
 rs.mat=matrix(y,nr=n,nc=iter,byrow=TRUE)
