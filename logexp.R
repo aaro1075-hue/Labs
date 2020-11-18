@@ -1,7 +1,11 @@
 #' Max Likelihood
 #'
-#'@param x
+#'@param x is the data
+#'@param lfun is a log for probability distribution functions
+#'@param param is parameter values
 #'
+#'@example
+#'mymaxlik(x=c(9,9,1,9,9,9),param=seq(0,1,length=1000),lfun=logbin,xlab=expression(pi),main="Binomial",cex.main=2)
 #'
 mymaxlik=function(lfun,x,param,...){
   np=length(param)
